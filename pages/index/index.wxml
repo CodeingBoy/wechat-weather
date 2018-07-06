@@ -1,3 +1,9 @@
-<view id="title">
-  Hello, wechat mini program
+<view id="weather-wrapper">
+  <view id="temperture">
+    16°
+  </view>
+  <view id="weather">
+    Sunny
+  </view>
+  <image id='weather-bg' src="/images/sunny-bg.png" mode="scaleToFill" />
 </view>
