@@ -1,0 +1,11 @@
+<!--pages/future-forecast/future.wxml-->
+<view id="future-weather-list">
+  <view class="future-weather-item" wx:for="{{futureWeatherInfos}}">
+    <view class="future-weather-date-info">
+      <text class="future-weather-weekday">{{item.weekday}}</text>
+      <text class="future-weather-date">{{item.date}}</text>
+    </view>
+    <text class="future-weather-temperature">{{item.temperature}}</text>
+    <image class="future-weather-icon" src="{{item.weatherIconUrl}}" />
+  </view>
+</view>

@@ -6,10 +6,10 @@
     {{currentWeather}}
   </view>
   <image id="weather-bg" src="{{backgroundImageUrl}}" mode="scaleToFill" />
-  <view id="today-weather">
-  <text id="today-date">{{todayDate}}</text>
-  <text id="today-temperature">{{todayTemperature}}</text>
-  <image id="forecast-page-arrow" src="/images/arrow.png"/>
+  <view id="today-weather" bind:tap="onTodayWeatherTap">
+    <text id="today-date">{{todayDate}}</text>
+    <text id="today-temperature">{{todayTemperature}}</text>
+    <image id="future-page-arrow" src="/images/arrow.png" />
   </view>
 </view>
 <view id="forecast-title">

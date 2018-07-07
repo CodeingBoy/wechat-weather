@@ -158,5 +158,10 @@ Page({
   },
   formatDate(date) {
     return date.toISOString().substring(0, 10);
+  },
+  onTodayWeatherTap: function(event){
+    wx.navigateTo({
+      url: "/pages/future-forecast/future"
+    });
   }
 })

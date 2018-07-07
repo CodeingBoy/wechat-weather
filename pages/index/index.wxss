@@ -104,7 +104,7 @@
   text-align: right;
 }
 
-#forecast-page-arrow{
+#future-page-arrow{
   width: 13rpx;
   height: 24rpx;
 }
