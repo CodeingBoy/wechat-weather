@@ -78,3 +78,33 @@
   width: 75rpx;
   height: 75rpx;
 }
+
+#today-weather{
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  position: absolute;
+  bottom: 0;
+  left: 40rpx;
+  right: 40rpx;
+  border-top: 1rpx solid rgba(0, 0, 0, 0.1);
+  font-size: 30rpx;
+  line-height: 42rpx;
+  opacity: 0.5;
+}
+
+#today-date{
+  flex-grow: 2;
+  vertical-align: middle;
+}
+
+#today-temperature{
+  flex-grow: 1;
+  padding-right: 30rpx;
+  text-align: right;
+}
+
+#forecast-page-arrow{
+  width: 13rpx;
+  height: 24rpx;
+}
