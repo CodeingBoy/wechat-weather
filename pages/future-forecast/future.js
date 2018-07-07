@@ -57,7 +57,11 @@ Page({
           weatherDate.setDate(nowDate.getDate() + i);
 
           r.weatherIconUrl = getForecastIconUrl(r.weather);
-          r.weekday = getWeekdays((nowWeekday + i) % 7);
+          if(i === 0){
+            r.weekday = "Today";
+          }else{
+            r.weekday = getWeekdays((nowWeekday + i) % 7);
+          }
           r.date = page.formatDate(weatherDate);
           r.temperature = r.minTemp + "°~" + r.maxTemp + "°";
         });
