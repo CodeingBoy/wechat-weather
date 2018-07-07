@@ -25,14 +25,14 @@ var appObject = {
   getLocationPermissionRequestStatus() {
     return locationPermissionStatus;
   },
-  refreshLocationPermissionRequestStatus(onPermitted, onPermissionCanceled){
+  refreshLocationPermissionRequestStatus(onPermitted, onPermissionCanceled) {
     var locationPermitted = wx.getSetting({
       scope: "scope.userLocation"
     });
-    if (locationPermitted && locationPermissionStatus !== NOT_PERMITTED){
+    if (locationPermitted && locationPermissionStatus !== NOT_PERMITTED) {
       locationPermissionStatus = PERMITTED;
       onPermitted && onPermitted();
-    } else if (!locationPermitted && locationPermissionStatus === NOT_PERMITTED){
+    } else if (!locationPermitted && locationPermissionStatus === NOT_PERMITTED) {
       locationPermissionStatus = NOT_PERMITTED;
       onPermissionCanceled && onPermissionCanceled();
     }

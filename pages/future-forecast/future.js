@@ -15,9 +15,9 @@ function getForecastIconUrl(weather) {
   return "/images/" + imageName;
 }
 
-function getWeekdays(n){
+function getWeekdays(n) {
   const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  if(n >= weekDays.length){
+  if (n >= weekDays.length) {
     return "Error";
   }
   return weekDays[n];
@@ -29,17 +29,17 @@ Page({
   data: {
     futureWeatherInfos: []
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     // const cityName = options.city;
     // console.log(cityName);
     this.updateFuture();
   },
-  onPullDownRefresh: function(){
-    this.updateFuture(function(){
+  onPullDownRefresh: function() {
+    this.updateFuture(function() {
       wx.stopPullDownRefresh();
     });
   },
-  updateFuture(onComplete){
+  updateFuture(onComplete) {
     const page = this;
     wx.request({
       url: 'https://test-miniprogram.com/api/weather/future',
@@ -47,19 +47,19 @@ Page({
         city: app.getCurrentCity(),
         time: new Date()
       },
-      success: function(data){
+      success: function(data) {
         var results = data.data.result;
 
         const nowDate = new Date();
         const nowWeekday = nowDate.getDay();
-        results.forEach(function(r, i){
+        results.forEach(function(r, i) {
           let weatherDate = new Date();
           weatherDate.setDate(nowDate.getDate() + i);
 
           r.weatherIconUrl = getForecastIconUrl(r.weather);
-          if(i === 0){
+          if (i === 0) {
             r.weekday = "Today";
-          }else{
+          } else {
             r.weekday = getWeekdays((nowWeekday + i) % 7);
           }
           r.date = page.formatDate(weatherDate);
@@ -70,7 +70,7 @@ Page({
           futureWeatherInfos: results
         });
       },
-      complete: function(){
+      complete: function() {
         onComplete && onComplete();
       }
     })

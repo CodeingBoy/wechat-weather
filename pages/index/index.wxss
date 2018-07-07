@@ -1,4 +1,4 @@
-#weather-wrapper{
+#weather-wrapper {
   position: relative;
   padding-top: 20rpx;
   padding-bottom: 250rpx;
@@ -6,20 +6,20 @@
   height: 100%;
 }
 
-#temperture{
+#temperture {
   font-size: 200rpx;
   line-height: 280rpx;
   text-align: center;
   opacity: 0.8;
 }
 
-#weather{
+#weather {
   font-size: 40rpx;
   line-height: 56rpx;
   text-align: center;
 }
 
-#weather-bg{
+#weather-bg {
   position: absolute;
   top: 0;
   left: 0;
@@ -28,7 +28,7 @@
   height: 760rpx;
 }
 
-#forecast-title{
+#forecast-title {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,27 +36,27 @@
   margin-bottom: 35rpx;
 }
 
-#forecast-title-icon{
+#forecast-title-icon {
   height: 28rpx;
   width: 36rpx;
   margin-right: 10rpx;
 }
 
-#forecast-title-text{
+#forecast-title-text {
   display: inline;
   font-size: 30rpx;
   line-height: 42rpx;
   opacity: 0.5;
 }
 
-#forecast-list{
+#forecast-list {
   display: flex;
   height: 300rpx;
   align-items: center;
   white-space: nowrap;
 }
 
-.forecast-item{
+.forecast-item {
   display: inline-block;
   height: 100%;
   width: 140rpx;
@@ -64,22 +64,22 @@
   text-align: center;
 }
 
-.forecast-item view, .forecast-item text{
+.forecast-item view, .forecast-item text {
   display: block;
 }
 
-.forecast-item text{
+.forecast-item text {
   font-size: 36rpx;
   line-height: 42rpx;
 }
 
-.forecast-item image{
+.forecast-item image {
   margin-top: 10rpx;
   width: 75rpx;
   height: 75rpx;
 }
 
-#today-weather{
+#today-weather {
   display: flex;
   align-items: center;
   height: 90rpx;
@@ -93,54 +93,54 @@
   opacity: 0.5;
 }
 
-#today-date{
+#today-date {
   flex-grow: 2;
   vertical-align: middle;
 }
 
-#today-temperature{
+#today-temperature {
   flex-grow: 1;
   padding-right: 30rpx;
   text-align: right;
 }
 
-#future-page-arrow{
+#future-page-arrow {
   width: 13rpx;
   height: 24rpx;
 }
 
-#location-info{
+#location-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 60rpx;
 }
 
-#current-location-info{
+#current-location-info {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-#location-icon{
+#location-icon {
   width: 21rpx;
   height: 30rpx;
   margin-right: 10rpx;
 }
 
-#current-locaton{
+#current-locaton {
   font-size: 30rpx;
   line-height: 42rpx;
   opacity: 0.5;
 }
 
-#refresh-location-tips{
+#refresh-location-tips {
   margin-top: 10rpx;
   font-size: 30rpx;
   line-height: 42rpx;
   opacity: 0.5;
 }
 
-.invisible{
+.invisible {
   visibility: hidden;
 }

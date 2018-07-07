@@ -1,8 +1,7 @@
-#future-weather-list{
-  
+#future-weather-list {
 }
 
-.future-weather-item{
+.future-weather-item {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -11,32 +10,32 @@
   margin: 0 40rpx;
 }
 
-.future-weather-date-info, .future-weather-temperature{
+.future-weather-date-info, .future-weather-temperature {
   flex-grow: 1;
   font-size: 40rpx;
   opacity: 56rpx;
 }
 
-.future-weather-date-info{
+.future-weather-date-info {
   display: flex;
   flex-direction: column;
 }
 
-.future-weather-weekday{
+.future-weather-weekday {
   opacity: 0.8;
 }
 
-.future-weather-date{
+.future-weather-date {
   font-size: 25rpx;
   line-height: 35rpx;
   opacity: 0.5;
 }
 
-.future-weather-temperature{
+.future-weather-temperature {
   text-align: center;
 }
 
-.future-weather-icon{
+.future-weather-icon {
   width: 90rpx;
   height: 90rpx;
 }
