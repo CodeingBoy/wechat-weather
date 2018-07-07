@@ -1,6 +1,6 @@
 #weather-wrapper{
   position: relative;
-  padding-top: 174rpx;
+  padding-top: 20rpx;
   padding-bottom: 250rpx;
   width: 100%;
   height: 100%;
@@ -107,4 +107,36 @@
 #future-page-arrow{
   width: 13rpx;
   height: 24rpx;
+}
+
+#location-info{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 60rpx;
+}
+
+#current-location-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#location-icon{
+  width: 21rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+
+#current-locaton{
+  font-size: 30rpx;
+  line-height: 42rpx;
+  opacity: 0.5;
+}
+
+#refresh-location-tips{
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+  opacity: 0.5;
 }

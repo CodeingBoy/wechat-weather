@@ -149,7 +149,7 @@ Page({
   },
   updateTodayTemperature: function(today) {
     var todayTemperature = "Unknown";
-    if(today.minTemp && today.maxTemp){
+    if(today.minTemp && today.maxTemp){ // bug
       todayTemperature = today.minTemp + '°~' + today.maxTemp + '°'
     }
     this.setData({
@@ -163,5 +163,25 @@ Page({
     wx.navigateTo({
       url: "/pages/future-forecast/future"
     });
+  },
+  onRefreshLocation: function(event){
+    wx.getLocation({
+      success: function (result){
+        var latitude = result.latitude;
+        var longitude = result.longitude;
+        var speed = result.speed;
+        var accuracy = result.accuracy;
+
+        console.log(latitude, longitude, speed, accuracy);
+
+
+      },
+      fail: function(){
+        wx.showModal({
+          title: 'Permission denied',
+          content: 'You have denied location permission.'
+        });
+      }
+    })
   }
 })

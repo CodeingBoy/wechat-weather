@@ -1,4 +1,11 @@
 <view id="weather-wrapper">
+  <view id="location-info" bind:tap="onRefreshLocation">
+    <view id="current-location-info">
+      <image id="location-icon" src="/images/location-icon.png" />
+      <text id="current-locaton">Universe</text>
+    </view>
+    <text id="refresh-location-tips">Tap here to refresh your location</text>
+  </view>
   <view id="temperture">
     {{currentTemperature}}°
   </view>
