@@ -16,6 +16,15 @@ const weatherBackgroundImageMap = {
   'snow': 'snow-bg.png'
 };
 
+const forecastIconMap = {
+  'sunny': 'sunny-icon.png',
+  'cloudy': 'cloudy-icon.png',
+  'overcast': 'overcast-icon.png',
+  'lightrain': 'lightrain-icon.png',
+  'heavyrain': 'heavyrain-icon.png',
+  'snow': 'snow-icon.png'
+};
+
 const weatherImageNavigationBarBackgroundColorMap = {
   'sunny': '#c4efff',
   'cloudy': '#daeff7',
@@ -43,11 +52,20 @@ function getBackgroundImageUrl(weather){
   return "/images/" + imageName;
 }
 
+function getForecastIconUrl(weather) {
+  var imageName = forecastIconMap[weather];
+  if (!imageName) {
+    return "";
+  }
+  return "/images/" + imageName;
+}
+
 Page({
   data: {
     currentTemperature: 0,
     currentWeather: "N/A",
-    backgroundImageUrl: "/images/sunny-bg.png"
+    backgroundImageUrl: "/images/sunny-bg.png",
+    forecasts: []
   },
   onLoad: function(){
     this.updateWeather();
@@ -58,35 +76,64 @@ Page({
     });
   },
   updateWeather: function(onCompleteCallback){
-    var page = this;
+    const page = this;
     wx.request({
       url: 'https://test-miniprogram.com/api/weather/now',
       data: { "city": "深圳市" },
       success: function (data) {
-        console.log(data);
         var now = data.data.result.now;
+        page.updateNowWeather(now);
 
-        // update weather texts and background image
-        page.setData({
-          currentTemperature: now.temp,
-          currentWeather: capitalizeWeatherText(now.weather),
-          backgroundImageUrl: getBackgroundImageUrl(now.weather)
-        });
-
-        // update navigation bar background color
-        wx.setNavigationBarColor({
-          frontColor: '#000000',
-          backgroundColor: weatherImageNavigationBarBackgroundColorMap[now.weather],
-          animation: {
-            duration: 400,
-            timingFunc: 'easeIn'
-          }
-        });
+        var forecasts = data.data.result.forecast;
+        page.updateForecast(forecasts);
       },
       complete: function(){
         onCompleteCallback && onCompleteCallback();
       }
     });
+  },
+  updateNowWeather: function(now){
+    this.setData({
+      currentTemperature: now.temp,
+      currentWeather: capitalizeWeatherText(now.weather),
+      backgroundImageUrl: getBackgroundImageUrl(now.weather)
+    });
+
+    // update navigation bar background color
+    wx.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: weatherImageNavigationBarBackgroundColorMap[now.weather],
+      animation: {
+        duration: 400,
+        timingFunc: 'easeIn'
+      }
+    });
+  },
+  updateForecast: function(forecasts){
+    const page = this;
+
+    // calculate forecast infos
+    forecasts.forEach(function (f) {
+      f.time = page.getForecastTime(f.id);
+      f.weatherIconUrl = getForecastIconUrl(f.weather);
+    });
+
+    this.setData({
+      forecasts
+    });
+  },
+  getForecastTime(id){
+    if(id == 0){
+      return "Now";
+    }
+    
+    var aheadHours = id * 3;
+    var now = new Date();
+    var nowHour = now.getHours();
+    var hours =  nowHour + aheadHours;
+    hours %= 24;
+    var postfix = hours < 12 ? "AM" : "PM";
+    return hours + " " + postfix;
   }
   
 })

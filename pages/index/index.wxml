@@ -5,5 +5,16 @@
   <view id="weather">
     {{currentWeather}}
   </view>
-  <image id='weather-bg' src="{{backgroundImageUrl}}" mode="scaleToFill" />
+  <image id="weather-bg" src="{{backgroundImageUrl}}" mode="scaleToFill" />
 </view>
+<view id="forecast-title">
+  <image id="forecast-title-icon" src="/images/time-icon.png" mode="aspectFit" />
+  <text id="forecast-title-text">Forecast within 24 hours</text>
+</view>
+<scroll-view scroll-x id="forecast-list">
+  <view class="forecast-item" wx:for="{{forecasts}}" wx:key="{{item.id}}">
+    <text class="forecast-time">{{item.time}}</text>
+    <image class="forecast-icon" src="{{item.weatherIconUrl}}" />
+    <text class="forecast-temperature">{{item.temp + '°'}}</text>
+  </view>
+</scroll-view>
