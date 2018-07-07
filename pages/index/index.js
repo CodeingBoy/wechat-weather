@@ -60,6 +60,11 @@ function getForecastIconUrl(weather) {
   return "/images/" + imageName;
 }
 
+const app = getApp();
+
+const REFRESH_LOCATION_TIPS_NOT_REQUEST = "Tap here to refresh your location";
+const REFRESH_LOCATION_TIPS_NOT_PERMITTED = "Location permission denied";
+
 Page({
   data: {
     currentTemperature: 0,
@@ -69,27 +74,40 @@ Page({
     todayDate: "0000-00-00",
     todayTemperature: "",
     todayMinTemperature: 0,
-    todayMaxTemperature: 0
+    todayMaxTemperature: 0,
+    currentCity: app.getCurrentCity(),
+    showRefreshLocationTips: true,
+    refreshLocationTips: REFRESH_LOCATION_TIPS_NOT_REQUEST
   },
-  onLoad: function () {
+  onLoad: function() {
     this.setData({
-      todayDate: this.formatDate(new Date()) + " Today"
+      todayDate: "Today: " + this.formatDate(new Date())
     });
     this.updateWeather();
   },
-  onPullDownRefresh: function () {
-    this.updateWeather(function () {
+  onShow: function() {
+    const page = this;
+    app.refreshLocationPermissionRequestStatus(function() {
+      page.onRefreshLocation();
+    }, function() {
+      page.setData({
+        refreshLocationTips: REFRESH_LOCATION_TIPS_NOT_PERMITTED
+      });
+    });
+  },
+  onPullDownRefresh: function() {
+    this.updateWeather(function() {
       wx.stopPullDownRefresh();
     });
   },
-  updateWeather: function (onCompleteCallback) {
+  updateWeather: function(onCompleteCallback) {
     const page = this;
     wx.request({
       url: 'https://test-miniprogram.com/api/weather/now',
       data: {
-        "city": "深圳市"
+        "city": page.data.currentCity
       },
-      success: function (data) {
+      success: function(data) {
         var now = data.data.result.now;
         page.updateNowWeather(now);
 
@@ -99,12 +117,12 @@ Page({
         var today = data.data.result.today;
         page.updateTodayTemperature(today);
       },
-      complete: function () {
+      complete: function() {
         onCompleteCallback && onCompleteCallback();
       }
     });
   },
-  updateNowWeather: function (now) {
+  updateNowWeather: function(now) {
     this.setData({
       currentTemperature: now.temp,
       currentWeather: capitalizeWeatherText(now.weather),
@@ -121,11 +139,11 @@ Page({
       }
     });
   },
-  updateForecast: function (forecasts) {
+  updateForecast: function(forecasts) {
     const page = this;
 
     // calculate forecast infos
-    forecasts.forEach(function (f) {
+    forecasts.forEach(function(f) {
       f.time = page.getForecastTime(f.id);
       f.weatherIconUrl = getForecastIconUrl(f.weather);
     });
@@ -147,7 +165,7 @@ Page({
     var postfix = hours < 12 ? "AM" : "PM";
     return hours + " " + postfix;
   },
-  updateTodayTemperature: function (today) {
+  updateTodayTemperature: function(today) {
     var todayTemperature = "Unknown";
     if (today.minTemp !== undefined && today.maxTemp !== undefined) {
       todayTemperature = today.minTemp + '°~' + today.maxTemp + '°'
@@ -159,29 +177,27 @@ Page({
   formatDate(date) {
     return date.toISOString().substring(0, 10);
   },
-  onTodayWeatherTap: function (event) {
+  onTodayWeatherTap: function(event) {
     wx.navigateTo({
-      url: "/pages/future-forecast/future"
+      url: "/pages/future-forecast/future?city=" + this.data.currentCity
     });
   },
-  onRefreshLocation: function (event) {
-    wx.getLocation({
-      success: function (result) {
-        var latitude = result.latitude;
-        var longitude = result.longitude;
-        var speed = result.speed;
-        var accuracy = result.accuracy;
-
-        console.log(latitude, longitude, speed, accuracy);
-
-
-      },
-      fail: function () {
-        wx.showModal({
-          title: 'Permission denied',
-          content: 'You have denied location permission.'
+  onRefreshLocation: function(event) {
+    const page = this;
+    const cityName = app.refreshLocation(function(cityName) {
+        page.setData({
+          currentCity: cityName,
+          showRefreshLocationTips: false
         });
-      }
-    })
+        page.updateWeather();
+      },
+      function() {
+        var permissionRequestStatus = app.getLocationPermissionRequestStatus();
+        if (permissionRequestStatus === 1) {
+          this.setData({
+            refreshLocationTips: REFRESH_LOCATION_TIPS_NOT_PERMITTED
+          });
+        }
+      });
   }
-})
+});

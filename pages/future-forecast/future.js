@@ -23,11 +23,15 @@ function getWeekdays(n){
   return weekDays[n];
 }
 
+const app = getApp();
+
 Page({
   data: {
     futureWeatherInfos: []
   },
   onLoad: function (options) {
+    // const cityName = options.city;
+    // console.log(cityName);
     this.updateFuture();
   },
   onPullDownRefresh: function(){
@@ -40,7 +44,7 @@ Page({
     wx.request({
       url: 'https://test-miniprogram.com/api/weather/future',
       data: {
-        city: "深圳市",
+        city: app.getCurrentCity(),
         time: new Date()
       },
       success: function(data){
@@ -69,5 +73,5 @@ Page({
   },
   formatDate(date) {
     return date.toISOString().substring(0, 10);
-  },
+  }
 })
