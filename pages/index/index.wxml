@@ -1,9 +1,9 @@
 <view id="weather-wrapper">
   <view id="temperture">
-    16°
+    {{currentTemperature}}°
   </view>
   <view id="weather">
-    Sunny
+    {{currentWeather}}
   </view>
-  <image id='weather-bg' src="/images/sunny-bg.png" mode="scaleToFill" />
+  <image id='weather-bg' src="{{backgroundImageUrl}}" mode="scaleToFill" />
 </view>
